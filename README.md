@@ -2,6 +2,8 @@
 
 Um aplicativo interativo de quiz de capitais do mundo construído com Node.js, Express e PostgreSQL.
 
+Disponivel em: https://quiz-capitais.onrender.com
+
 ## 📋 Descrição
 
 World Capital Quiz é uma aplicação web que testa o conhecimento do usuário sobre as capitais dos países do mundo. O jogo apresenta o nome de um país aleatório e o usuário deve fornecer a capital correta. O aplicativo mantém uma pontuação e encerra o jogo quando o usuário erra.
