@@ -46,20 +46,6 @@ World Capital Quiz é uma aplicação web que testa o conhecimento do usuário s
 - Verifica se a resposta está correta
 - Retorna a próxima pergunta com a pontuação atualizada
 
-## 🎨 Personalização
-
-```javascript
-require('dotenv').config();
-
-let db = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-})
-```
-
 ## 👤 Autor
 
 Desenvolvido como projeto de aprendizado com Node.js e PostgreSQL.
