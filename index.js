@@ -1,9 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import  pg  from "pg";
-import 'dotenv/config';
 
-const db = new pg.Client({
+
+const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
