@@ -1,21 +1,23 @@
 import express from "express";
 import bodyParser from "body-parser";
 import  pg  from "pg";
+import 'dotenv/config';
+
+const db = new pg.Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+
+});
+
+db.connect()
+  .then(() => console.log('Conectado ao PostgreSQL do Render '))
+  .catch(err => console.error('Erro ao conectar', err));
 
 
 const app = express();
 const port = 3000;
-
-
-let db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "world" ,
-  password: "4508",
-  port: 5432,
-}) 
-
-db.connect();
 
 
 
