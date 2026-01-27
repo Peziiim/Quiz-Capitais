@@ -12,7 +12,6 @@ World Capital Quiz é uma aplicação web que testa o conhecimento do usuário s
 
 -  Quiz dinâmico com países aleatórios
 -  Sistema de pontuação em tempo real
--  Feedback visual (✔ para acertos, ✖ para erros)
 -  Game Over automático ao errar
 -  Interface responsiva
 -  Dados persistidos em banco de dados PostgreSQL
@@ -24,7 +23,6 @@ World Capital Quiz é uma aplicação web que testa o conhecimento do usuário s
 - **Banco de Dados**: PostgreSQL
 - **Dependências principais**:
   - `express` - Framework web
-  - `body-parser` - Middleware para parsing de dados
   - `pg` - Client PostgreSQL
   - `ejs` - Template engine
 
