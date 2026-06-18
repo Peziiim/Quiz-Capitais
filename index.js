@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import  pg  from "pg";
 
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -12,7 +13,7 @@ const db = new pg.Pool({
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 
