@@ -1,41 +1,52 @@
 import express from "express";
 import bodyParser from "body-parser";
-import  pg  from "pg";
-
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
-
-const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
+import fs from "fs";
+import csv from "csv-parser";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port =  3000;
 
 
 
 let quiz = [];
 
+
+function loadCSV() {
+  return new Promise((resolve, reject) => {
+    const results = [];
+
+    fs.createReadStream("capitals.csv")
+      .pipe(csv())
+      .on("data", (data) => {
+        results.push({
+          id: Number(data.id),
+          country: data.country,
+          capital: data.capital,
+        });
+      })
+      .on("end", () => {
+        quiz = results;
+        console.log(`Capitais carregadas: ${quiz.length}`);
+        resolve();
+      })
+      .on("error", (err) => {
+        reject(err);
+      });
+  });
+}
+
 async function startServer() {
   try {
-    console.log("DATABASE_URL definida?", !!process.env.DATABASE_URL);
-
-    const result = await db.query("SELECT * FROM capitals");
-
-    quiz = result.rows;
-
-    console.log(`Capitais carregadas: ${quiz.length}`);
+    await loadCSV();
 
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
     });
   } catch (err) {
-    console.error("Erro ao carregar capitais:", err);
+    console.error("Erro ao carregar CSV:", err);
   }
 }
+
 startServer();
 
 let totalCorrect = 0;
