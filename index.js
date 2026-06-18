@@ -11,9 +11,12 @@ const db = new pg.Pool({
 
 });
 
-db.connect()
-  .then(() => console.log('Conectado ao PostgreSQL do Render '))
-  .catch(err => console.error('Erro ao conectar', err));
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 
 const app = express();
@@ -25,6 +28,8 @@ let quiz = [];
 
 async function startServer() {
   try {
+    console.log("DATABASE_URL definida?", !!process.env.DATABASE_URL);
+
     const result = await db.query("SELECT * FROM capitals");
 
     quiz = result.rows;
@@ -34,12 +39,10 @@ async function startServer() {
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
     });
-
   } catch (err) {
     console.error("Erro ao carregar capitais:", err);
   }
 }
-
 startServer();
 
 let totalCorrect = 0;
