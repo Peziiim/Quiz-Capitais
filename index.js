@@ -23,14 +23,24 @@ const port = 3000;
 
 let quiz = [];
 
-db.query(`SELECT * FROM capitals`, (err, res) => {
-  if(err){
-    console.log("Erro ao realizar a consulta: ", err.stack)
-  } else {
-    quiz = res.rows
-  }
-})
+async function startServer() {
+  try {
+    const result = await db.query("SELECT * FROM capitals");
 
+    quiz = result.rows;
+
+    console.log(`Capitais carregadas: ${quiz.length}`);
+
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+
+  } catch (err) {
+    console.error("Erro ao carregar capitais:", err);
+  }
+}
+
+startServer();
 
 let totalCorrect = 0;
 
@@ -71,7 +81,3 @@ async function nextQuestion() {
 
   currentQuestion = randomCountry;
 }
-
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
